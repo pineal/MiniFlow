@@ -124,7 +124,31 @@ perform a calculation - addition
 """
 
 class Add(Node):
-    def __init__(self, x, y):
-        node.__init__(self, [x, y]):
+    def __init__(self, *inputs):
+        node.__init__(self, inputs)
 
     def forward(self):
+        self.value = 0
+        for i in range(0, len(self.inbound_nodes)):
+            self.value = self.value + self.inbound_nodes[i].value
+
+
+"""
+class Linear:
+"""
+
+class Linear(Node):
+    def __init__(self, inputs, weights, bias):
+        Node.__init__(self, [inputs, weights, bias]):
+
+    def forward(self):
+        """
+        Set self.value to the value of the linear function output.
+        """
+        inputs = self.inbound_nodes[0].value
+        weights = self.inbound_nodes[1].value
+        bias = self.inbound_nodes[2].value
+        self.value = bias
+        for x, w in zip(inputs, weights):
+            self.value += x * w
+
