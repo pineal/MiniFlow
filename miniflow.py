@@ -138,17 +138,14 @@ class Linear:
 """
 
 class Linear(Node):
-    def __init__(self, inputs, weights, bias):
-        Node.__init__(self, [inputs, weights, bias]):
+    def __init__(self, X, W, b):
+        Node.__init__(self, [X, W, b]):
 
     def forward(self):
         """
         Set self.value to the value of the linear function output.
         """
-        inputs = self.inbound_nodes[0].value
-        weights = self.inbound_nodes[1].value
-        bias = self.inbound_nodes[2].value
-        self.value = bias
-        for x, w in zip(inputs, weights):
-            self.value += x * w
-
+        X = self.inbound_nodes[0].value
+        W = self.inbound_nodes[1].value
+        b = self.inbound_nodes[2].value
+        self.value = np.dot(X, W) + b
